@@ -1,0 +1,19 @@
+<div class='container mx-auto'>
+
+    <form class='mt-40 ml-80' [formGroup]='loginForm' (ngSubmit)='login()'>
+  
+      <h1 class='text-5xl mb-10'>Inicio de sesión</h1>
+  
+      <div class='mb-5'>
+        <input type='text' formControlName='email' class='border border-black' name='email' id='email' placeholder='email'>
+      </div>
+  
+      <div class='mb-5'>
+        <input type='password' formControlName='password' class='border border-black' name='password' id='password' placeholder='password'>
+      </div>
+  
+      <button type='submit' class='text-white  bg-blue-500 rounded-2xl p-2.5'>Enviar</button>
+  
+    </form>
+  
+  </div>
