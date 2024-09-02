@@ -1,6 +1,7 @@
 package com.runningback.controller;
 
 
+import com.runningback.dto.ApiResponse;
 import com.runningback.dto.UserDto;
 import com.runningback.entity.User;
 import com.runningback.jwt.JwtService;
@@ -14,8 +15,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin("http://localhost:4200/")
 public class UserController {
 
     private final AuthenticationManager authenticationManager;
@@ -29,17 +33,17 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody UserDto userDto) {
+    public ResponseEntity<ApiResponse> register(@RequestBody UserDto userDto) {
         User newUser = new User();
         newUser.setEmail(userDto.getEmail());
         newUser.setPassword(userDto.getPassword());
 
         userService.registerUser(newUser);
-        return ResponseEntity.ok("User registered successfully");
+        return ResponseEntity.ok(new ApiResponse(true, "User registered successfully", null));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserDto userDto) {
+    public ResponseEntity<ApiResponse> login(@RequestBody UserDto userDto) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(userDto.getEmail(), userDto.getPassword())
@@ -47,17 +51,16 @@ public class UserController {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = jwtService.generateToken(userDto.getEmail());
-            return ResponseEntity.ok(token);
-        } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
-        }
-    }
+            userDto.setToken(token);
 
-    @GetMapping("/hola")
-    public String home() {
-        return "Hello World";
+            return ResponseEntity.ok(new ApiResponse(true, "Login successful", Map.of("token", token)));
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new ApiResponse(false, "Invalid credentials", null));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse(false, "Something went wrong", null));
+        }
     }
 
 }

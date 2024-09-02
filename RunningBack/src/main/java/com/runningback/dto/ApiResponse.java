@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class ApiResponse {
 
-    private String email;
-    private String password;
-    private String token;
+    private boolean success;
+    private String message;
+    private Object data;
+
 
 }
