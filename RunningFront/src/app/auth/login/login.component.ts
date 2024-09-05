@@ -27,11 +27,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Verifica si hay un token válido al cargar el componente
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.router.navigate(['/dashboard']);
-    }
   }
 
   login() {
@@ -57,4 +52,6 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+
+  
 }
