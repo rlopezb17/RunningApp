@@ -5,6 +5,7 @@ import com.runningback.dto.ApiResponse;
 import com.runningback.dto.UserDto;
 import com.runningback.entity.User;
 import com.runningback.jwt.JwtService;
+import com.runningback.mapper.UserMapper;
 import com.runningback.service.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,10 +35,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<ApiResponse> register(@RequestBody UserDto userDto) {
-        User newUser = new User();
-        newUser.setEmail(userDto.getEmail());
-        newUser.setPassword(userDto.getPassword());
-
+        User newUser = UserMapper.toUserEntity(userDto);
         userService.registerUser(newUser);
         return ResponseEntity.ok(new ApiResponse(true, "User registered successfully", null));
     }
