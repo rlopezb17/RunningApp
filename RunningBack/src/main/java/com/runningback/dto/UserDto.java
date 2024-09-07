@@ -20,6 +20,7 @@ public class UserDto {
     private String password;
     private LocalDate birthDate;
     private int weight;
+    private int height;
     private String token;
 
     //RELACIONES

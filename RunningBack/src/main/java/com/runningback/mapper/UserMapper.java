@@ -20,6 +20,7 @@ public class UserMapper {
         dto.setPassword(user.getPassword());
         dto.setBirthDate(user.getBirthDate());
         dto.setWeight(user.getWeight());
+        dto.setHeight(user.getHeight());
 
         if (user.getCountry() != null) {
             dto.setCountry(CountryMapper.toCountryDto(user.getCountry()));
@@ -48,6 +49,7 @@ public class UserMapper {
         user.setPassword(dto.getPassword());
         user.setBirthDate(dto.getBirthDate());
         user.setWeight(dto.getWeight());
+        user.setHeight(dto.getHeight());
 
         if (dto.getCountry() != null) {
             user.setCountry(CountryMapper.toCountryEntity(dto.getCountry()));

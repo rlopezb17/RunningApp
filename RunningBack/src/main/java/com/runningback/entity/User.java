@@ -36,6 +36,7 @@ public class User implements UserDetails {
     private String password;
     private LocalDate birthDate;
     private int weight;
+    private int height;
 
     // RELACIONES
     @ManyToOne
