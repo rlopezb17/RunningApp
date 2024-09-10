@@ -58,7 +58,7 @@
           <select formControlName='country' name='country' id='country' class='block w-full p-2 rounded-lg text-base bg-gray-700 border-gray-600'>
             @for (country of countries; track country.id) {
               <option  [value]='country.id'>
-                 {{ country.icon }} {{ country.name }}
+                 <img src='{{ country.icon }}'> {{ country.name }}
               </option>
             }
           </select>

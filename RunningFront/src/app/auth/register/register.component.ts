@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { Country } from '../../interfaces/country';
+import { GetsService } from '../../services/gets.service';
 
 @Component({
   selector: 'app-register',
@@ -13,16 +14,11 @@ import { Country } from '../../interfaces/country';
 })
 export class RegisterComponent {
 
-  countries: Country[] = [
-    { id: 1, name: 'USA', icon: 'us-icon' },
-    { id: 2, name: 'Canada', icon: 'canada-icon' },
-    { id: 3, name: 'Mexico', icon: 'mexico-icon' }
-  ];
-
+  countries: Country[];
   registerForm: FormGroup;
 
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { 
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private countryService: GetsService) { 
     this.registerForm = formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -38,6 +34,14 @@ export class RegisterComponent {
   }
 
   ngOnInit() {
+    this.countryService.getAllCountries().subscribe(
+      (data: Country[]) => {
+        this.countries = data;
+      },
+      (error) => {
+        console.error('Error al obtener los países', error);
+      }
+    );
   }
 
 

@@ -2,6 +2,7 @@ package com.runningback.controller;
 
 import com.runningback.entity.Country;
 import com.runningback.service.ICountryService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
