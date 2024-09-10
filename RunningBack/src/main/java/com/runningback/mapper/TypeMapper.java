@@ -9,6 +9,7 @@ public class TypeMapper {
         TypeDto dto = new TypeDto();
         dto.setId(type.getId());
         dto.setName(type.getName());
+        dto.setIcon(type.getIcon());
         return dto;
     }
 
@@ -16,6 +17,7 @@ public class TypeMapper {
         Type type = new Type();
         type.setId(dto.getId());
         type.setName(dto.getName());
+        type.setIcon(dto.getIcon());
         return type;
     }
 
