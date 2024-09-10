@@ -18,14 +18,11 @@
         <input type='password' formControlName='password'  class='block w-full p-2 rounded-lg text-base bg-gray-700 border-gray-600' name='password' id='password' placeholder='●●●●●●●●'>
       </div>
 
-      <div class='flex items-start mb-5'>
-        <div class='flex items-center h-5 mr-5'>
-          <input type='checkbox' class='form-checkbox bg-gray-700 border border-gray-600 rounded' name='remember' id='remember'>
-        </div>
-        <label for='remember' class='text-sm font-medium'>Remember me</label>
+      <div >
+        <p class='text-lg font-medium'>No tienes cuenta <a routerLink='/register' routerLinkActive='true' class='text-blue-600'>¡Regístrate aquí!</a></p>
       </div>
 
-      <div class='grid justify-center -mt-4'>
+      <div class='grid justify-center'>
         <button type='submit' class='text-lg font-semibold bg-blue-500 rounded-xl px-8 py-2'[disabled]="loginForm.invalid">Enviar</button>
       </div>
 
