@@ -45,7 +45,7 @@
 
         <div>
           <label for='height' class='block mb-2 text-sm font-medium'>Weight</label>
-          <input type='number' formControlName='height'  class='block w-full p-2 rounded-lg text-base bg-gray-700 border-gray-600' name='weight' id='weight' placeholder='58'>
+          <input type='number' formControlName='weight'  class='block w-full p-2 rounded-lg text-base bg-gray-700 border-gray-600' name='weight' id='weight' placeholder='58'>
         </div>
 
         <div>
@@ -57,7 +57,7 @@
           <label for='country' class='block mb-2 text-sm font-medium'>Select your Country</label>
           <select formControlName='country' name='country' id='country' class='block w-full p-2 rounded-lg text-base bg-gray-700 border-gray-600'>
             @for (country of countries; track country.id) {
-              <option [value]='country.id'>
+              <option [ngValue]='country'>
                  {{ country.name }}
               </option>
             }
@@ -67,7 +67,7 @@
       </div>
 
       <div class='grid justify-center mb-10'>
-        <button type='submit' class='text-lg font-semibold bg-blue-500 rounded-xl px-8 py-2' [disabled]='registerForm.invalid'>Send</button>
+        <button type='submit' class='text-lg font-semibold bg-blue-500 rounded-xl px-8 py-2'>Send</button>
       </div>
 
     </form>

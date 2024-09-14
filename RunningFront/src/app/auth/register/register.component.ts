@@ -25,16 +25,16 @@ export class RegisterComponent {
   ngOnInit() {
 
     this.registerForm = this.formBuilder.group({
-      firstName: ['', Validators.required, Validators.minLength(3)],
-      lastName: ['', Validators.required, Validators.minLength(3)],
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      username: ['', Validators.required, Validators.minLength(3)],
+      username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      password2: ['', Validators.required],
-      weight: ['', Validators.required, Validators.min(40), Validators.max(200)],
-      height: ['', Validators.required, Validators.min(100), Validators.max(230)],
-      birthDate: ['', Validators.required],
-      country: ['', Validators.required]
+      password2: ['', [Validators.required]],
+      weight: ['', [Validators.required, Validators.min(40), Validators.max(200)]],
+      height: ['', [Validators.required, Validators.min(100), Validators.max(230)]],
+      birthDate: ['', [Validators.required]],
+      country: ['', [Validators.required]]
     }, { validators: this.passwordMatchValidator });
 
     this.countryService.getAllCountries().subscribe({
@@ -67,7 +67,7 @@ export class RegisterComponent {
 
     this.authService.register(user).subscribe({
       next: (response) => {
-        console.log(user);
+        this.router.navigate(['/login'])
       },
       error: (err) => {
         console.log("Something went wrong ", err)
@@ -76,7 +76,6 @@ export class RegisterComponent {
         console.log("Register succesfully!")
       }
     });
-    
   }
 
 
