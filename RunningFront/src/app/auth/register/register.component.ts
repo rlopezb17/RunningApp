@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Country } from '../../interfaces/country';
 import { GetsService } from '../../services/gets.service';
 import { User } from '../../interfaces/user';
+import { isValidDate } from 'rxjs/internal/util/isDate';
 
 @Component({
   selector: 'app-register',
@@ -23,15 +24,15 @@ export class RegisterComponent {
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private countryService: GetsService) { 
 
     this.registerForm = this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.minLength(3)]],
-      lastName: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]],
+      firstName: ['', [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-ZÀ-ÿ\u00f1\u00d1]+$')]],
+      lastName: ['', [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-ZÀ-ÿ\u00f1\u00d1]+$')]],
+      email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}(\.[a-zA-Z]{2,4})?$')]],
       username: ['', [Validators.required, Validators.minLength(3)]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(6), this.passwordStrengthValidator]],
       password2: ['', [Validators.required]],
-      weight: ['', [Validators.required, Validators.min(40), Validators.max(200)]],
+      weight: ['', [Validators.required, Validators.min(30), Validators.max(200)]],
       height: ['', [Validators.required, Validators.min(100), Validators.max(230)]],
-      birthDate: ['', [Validators.required]],
+      birthDate: ['', [Validators.required, this.ageValidator]],
       country: ['', [Validators.required]]
     }, { validators: this.passwordMatchValidator });
 
@@ -60,6 +61,33 @@ export class RegisterComponent {
     }
     return null;
   }
+
+  passwordStrengthValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const password = control.value;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /\d/.test(password);
+
+    if (!hasUpperCase || !hasLowerCase || !hasNumber) {
+      return { 'weakPassword': true };
+    }
+    return null;
+  }
+
+  ageValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const birthDate = new Date(control.value);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+    const dayDifference = today.getDate() - birthDate.getDate();
+    
+    if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+      age--;
+    }
+
+    return age >= 12 && age <=100 ? null : { 'ageInvalid': true };
+  }
+
 
   register() {
     this.submitted = true;

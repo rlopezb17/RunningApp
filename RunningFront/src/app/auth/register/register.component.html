@@ -11,46 +11,190 @@
         <div>
           <label for='firstName' class='block mb-2 text-sm font-medium'>First Name</label>
           <input type='text' formControlName='firstName' class='block w-full p-2 rounded-lg text-base bg-gray-700 border-gray-600' name='firstName' id='firstName' placeholder='Roberto'>
+          @if (registerForm.invalid && (registerForm.get('firstName').touched || registerForm.get('firstName').dirty)) {
+           <div>
+            @if (registerForm.get('firstName').hasError('required')) {
+              <div class='absolute text-sm text-red-600'>
+                * This field is required
+              </div>
+            }
+            @else if (registerForm.get('firstName').hasError('minlength')) {
+              <div class='absolute text-sm text-red-600'>
+                * First Name must have at least 3 characteres
+              </div>
+            }
+            @else if (registerForm.get('firstName').hasError('pattern')) {
+              <div class='absolute text-sm text-red-600'>
+                * First Name can only contains letters
+              </div>
+            }
+           </div>
+          }
         </div>
 
         <div>
           <label for='lastName' class='block mb-2 text-sm font-medium'>Last Name</label>
           <input type='text' formControlName='lastName'  class='block w-full p-2 rounded-lg text-base bg-gray-700 border-gray-600' name='lastName' id='lastName' placeholder='López Barbarin'>
+          @if (registerForm.invalid && (registerForm.get('lastName').touched || registerForm.get('lastName').dirty)) {
+            <div>
+              @if (registerForm.get('lastName').hasError('required')) {
+                <div class='absolute text-sm text-red-600'>
+                  * This field is required
+                </div>
+              }
+              @else if (registerForm.get('lastName').hasError('minlength')) {
+                <div class='absolute text-sm text-red-600'>
+                  * Last Name must have at least 3 characteres
+                </div>
+              }
+              @else if (registerForm.get('lastName').hasError('pattern')) {
+                <div class='absolute text-sm text-red-600'>
+                  * Last Name can only contains letters
+                </div>
+              }
+            </div>
+          }
         </div>
 
         <div>
           <label for='email' class='block mb-2 text-sm font-medium'>Email</label>
           <input type='text' formControlName='email'  class='block w-full p-2 rounded-lg text-base bg-gray-700 border-gray-600' name='email' id='email' placeholder='running@gmail.com'>
+          @if (registerForm.invalid && (registerForm.get('email').touched || registerForm.get('email').dirty)) {
+            <div>
+              @if (registerForm.get('email').hasError('required')) {
+                <div class='absolute text-sm text-red-600'>
+                  * This field is required
+                </div>
+              }
+              @else if (registerForm.get('email').hasError('pattern')) {
+                <div class='absolute text-sm text-red-600'>
+                  * Not good email format
+                </div>
+              }
+            </div>
+          }
         </div>
 
         <div>
           <label for='username' class='block mb-2 text-sm font-medium'>Username</label>
           <input type='text' formControlName='username'  class='block w-full p-2 rounded-lg text-base bg-gray-700 border-gray-600' name='username' id='username' placeholder='TheRealRunner'>
+          @if (registerForm.invalid && (registerForm.get('username').touched || registerForm.get('username').dirty)) {
+            <div>
+              @if (registerForm.get('username').hasError('required')) {
+                <div class='absolute text-sm text-red-600'>
+                  * This field is required
+                </div>
+              }
+              @else if (registerForm.get('username').hasError('minlength')) {
+                <div class='absolute text-sm text-red-600'>
+                  * Username must have at least 3 characteres
+                </div>
+              }
+            </div>
+          }
         </div>
 
         <div>
           <label for='password' class='block mb-2 text-sm font-medium'>Password</label>
           <input type='password' formControlName='password'  class='block w-full p-2 rounded-lg text-base bg-gray-700 border-gray-600' name='password' id='password' placeholder='●●●●●●●●'>
+          @if (registerForm.invalid && (registerForm.get('password').touched || registerForm.get('password').dirty)) {
+            <div>
+              @if (registerForm.get('password').hasError('required')) {
+                <div class='absolute text-sm text-red-600'>
+                  * This field is required
+                </div>
+              }
+              @else if (registerForm.get('password').hasError('minlength')) {
+                <div class='absolute text-sm text-red-600'>
+                  * Password must have at least 6 characteres
+                </div>
+              }
+              @else if (registerForm.get('password').hasError('weakPassword')) {
+                <div class='absolute text-sm text-red-600'>
+                  * The password must contain mayus, minus and numbers
+                </div>
+              }
+            </div>
+          }
         </div>
 
         <div>
           <label for='password2' class='block mb-2 text-sm font-medium'>Repeat Password</label>
           <input type='password' formControlName='password2'  class='block w-full p-2 rounded-lg text-base bg-gray-700 border-gray-600' name='password2' id='password2' placeholder='●●●●●●●●'>
+          @if (registerForm.get('password2').touched || registerForm.get('password2').dirty) {
+            <div>
+              @if (registerForm.invalid && (registerForm.get('password2').hasError('required'))) {
+                <div class='absolute text-sm text-red-600'>
+                  * This field is required
+                </div>
+              }
+            </div>
+          }
         </div>
 
         <div>
           <label for='height' class='block mb-2 text-sm font-medium'>Height</label>
           <input type='number' formControlName='height'  class='block w-full p-2 rounded-lg text-base bg-gray-700 border-gray-600' name='height' id='height' placeholder='182'>
+          @if (registerForm.invalid && (registerForm.get('height').touched || registerForm.get('height').dirty)) {
+            @if (registerForm.get('height').hasError('required')) {
+              <div class='absolute text-sm text-red-600'>
+                * This field is required
+              </div>
+            }
+            @else if (registerForm.get('height').hasError('min')) {
+              <div class='absolute text-sm text-red-600'>
+                * Minimum height: 100
+              </div>
+            }
+            @else if (registerForm.get('height').hasError('max')) {
+              <div class='absolute text-sm text-red-600'>
+                * Maximum height: 230
+              </div>
+            }
+          }
         </div>
 
         <div>
-          <label for='height' class='block mb-2 text-sm font-medium'>Weight</label>
+          <label for='weight' class='block mb-2 text-sm font-medium'>Weight</label>
           <input type='number' formControlName='weight'  class='block w-full p-2 rounded-lg text-base bg-gray-700 border-gray-600' name='weight' id='weight' placeholder='58'>
+          @if (registerForm.invalid && (registerForm.get('weight').touched || registerForm.get('weight').dirty)) {
+            <div>
+              @if (registerForm.get('weight').hasError('required')) {
+                <div class='absolute text-sm text-red-600'>
+                  * This field is required
+                </div>
+              }
+              @else if (registerForm.get('weight').hasError('min')) {
+                <div class='absolute text-sm text-red-600'>
+                  * Minimum weight: 30
+                </div>
+              }
+              @else if (registerForm.get('weight').hasError('max')) {
+                <div class='absolute text-sm text-red-600'>
+                  * Maximum weight: 200
+                </div>
+              }
+            </div>
+          }
         </div>
 
         <div>
           <label for='birthDate' class='block mb-2 text-sm font-medium'>Birth Date</label>
           <input type='date' formControlName='birthDate'  class='block w-full p-2 rounded-lg text-base bg-gray-700 border-gray-600' name='birthDate' id='birthDate' placeholder='birthDate'>
+          @if (registerForm.invalid && (registerForm.get('birthDate').touched || registerForm.get('birthDate').dirty)) {
+            <div>
+              @if (registerForm.get('birthDate').hasError('required')) {
+                <div class='absolute text-sm text-red-600'>
+                  * This field is required
+                </div>
+              }
+              @else if (registerForm.get('birthDate').hasError('ageInvalid')) {
+                <div class='absolute text-sm text-red-600'>
+                  * The age range is 12 to 100
+                </div>
+              }
+            </div>
+          }
         </div>
         
         <div>
@@ -62,6 +206,13 @@
               </option>
             }
           </select>
+          @if (registerForm.invalid && (registerForm.get('country').touched || registerForm.get('country').dirty)) {
+            @if (registerForm.get('country').hasError('required')) {
+              <div class='absolute text-sm text-red-600'>
+                * This field is required
+              </div>
+            }
+          }
         </div>
         
       </div>
@@ -73,4 +224,5 @@
     </form>
   
   </div>
+
   
