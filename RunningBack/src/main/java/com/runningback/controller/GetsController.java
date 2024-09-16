@@ -1,7 +1,8 @@
 package com.runningback.controller;
 
-import com.runningback.entity.Country;
+import com.runningback.dto.CountryDto;
 import com.runningback.service.ICountryService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,8 +21,9 @@ public class GetsController {
 
 
     @GetMapping("/countries")
-    public List<Country> getAllCountries() {
-        return countryService.getAllCountries();
+    public ResponseEntity<List<CountryDto>> getAllCountries() {
+        List<CountryDto> countries = countryService.getAllCountries();
+        return ResponseEntity.ok(countries);
     }
 
 }

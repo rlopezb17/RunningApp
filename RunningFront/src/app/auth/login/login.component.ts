@@ -36,8 +36,7 @@ export class LoginComponent implements OnInit {
         next: (response: any) => {
           const token = response.data.token;
           if (token) {
-            localStorage.setItem("token", token);
-            console.log("Logged successfully: ", response);
+            localStorage.setItem("token", token);6
             this.router.navigate(['/dashboard']);
           } else {
             console.log("No token received");
@@ -45,9 +44,6 @@ export class LoginComponent implements OnInit {
         },
         error: (err) => {
           console.log("Login failed", err);
-        },
-        complete: () => {
-          console.log("Login request completed");
         }
       });
     }

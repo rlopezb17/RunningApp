@@ -10,7 +10,7 @@ export class GetsService {
 
   private url = "http://localhost:8080/api/get"
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
 
   getAllCountries(): Observable<Country[]> {

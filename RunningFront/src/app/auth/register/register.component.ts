@@ -20,16 +20,14 @@ export class RegisterComponent {
   submitted = false;
 
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private countryService: GetsService) { }
-
-  ngOnInit() {
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private countryService: GetsService) { 
 
     this.registerForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       username: ['', [Validators.required, Validators.minLength(3)]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       password2: ['', [Validators.required]],
       weight: ['', [Validators.required, Validators.min(40), Validators.max(200)]],
       height: ['', [Validators.required, Validators.min(100), Validators.max(230)]],
@@ -37,18 +35,25 @@ export class RegisterComponent {
       country: ['', [Validators.required]]
     }, { validators: this.passwordMatchValidator });
 
+  }
+
+  ngOnInit() {
+
     this.countryService.getAllCountries().subscribe({
       next: (data) =>{
         this.countries = data;
       },
       error: (err) => {
-        console.log("Something went wrong", err);
+        console.log("Error status: ", err.status);
+        console.log("Error message: ", err.message);
+        console.log("Full error object: ", err);    
       }
     });
+
   }
 
   passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    const password = control.get('password');
+    const password = control.get('password'); 
     const password2 = control.get('password2');
     if (password && password2 && password.value !== password2.value) {
       return { 'mismatch': true };
@@ -67,13 +72,10 @@ export class RegisterComponent {
 
     this.authService.register(user).subscribe({
       next: (response) => {
-        this.router.navigate(['/login'])
+        this.router.navigate(['/login']);
       },
       error: (err) => {
-        console.log("Something went wrong ", err)
-      },
-      complete: () => {
-        console.log("Register succesfully!")
+        console.log("Something went wrong ", err);
       }
     });
   }
