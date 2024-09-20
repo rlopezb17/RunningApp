@@ -61,4 +61,29 @@ public class UserController {
         }
     }
 
+    @GetMapping("/getUser/{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable int id) {
+        User user = userService.getUserById(id);
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(UserMapper.toUserDto(user), HttpStatus.OK);
+    }
+
+    @PutMapping("/updateUser/{id}")
+    public ResponseEntity<ApiResponse> updateUser(@PathVariable int id, @RequestBody UserDto userDto) {
+        User newUser = UserMapper.toUserEntity(userDto);
+        User userUpdate = userService.updateUser(id, newUser);
+        if (userUpdate == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        ApiResponse response = new ApiResponse(true, "User updated successfully", userUpdate);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/user-id")
+    public int getAuthenticatedUser() {
+        return userService.getAuthenticatedUser();
+    }
+
 }

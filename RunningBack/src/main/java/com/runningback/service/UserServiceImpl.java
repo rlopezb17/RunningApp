@@ -2,6 +2,8 @@ package com.runningback.service;
 
 import com.runningback.entity.User;
 import com.runningback.repository.IUserRepo;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +24,28 @@ public class UserServiceImpl implements IUserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
     }
+
+    @Override
+    public User getUserById(int id) {
+        return userRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public User updateUser(int id, User user) {
+        return userRepo.findById(id).map(userUpdate -> {
+            userUpdate.setFirstName(user.getFirstName());
+            userUpdate.setLastName(user.getLastName());
+            userUpdate.setEmail(user.getEmail());
+            userUpdate.setUsername(user.getUsername());
+            return userRepo.save(userUpdate);
+        }).orElse(null);
+    }
+
+    @Override
+    public int getAuthenticatedUser() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return user.getId();
+    }
+
 
 }

@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
           const token = response.data.token;
           if (token) {
             localStorage.setItem("token", token);6
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['']);
           } else {
             console.log("No token received");
           }
