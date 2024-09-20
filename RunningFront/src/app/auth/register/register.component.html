@@ -76,25 +76,6 @@
         </div>
 
         <div>
-          <label for='username' class='block mb-2 text-sm font-medium'>Username</label>
-          <input type='text' formControlName='username'  class='block w-full p-2 rounded-lg text-base bg-gray-700 border-gray-600' name='username' id='username' placeholder='TheRealRunner'>
-          @if (registerForm.invalid && (registerForm.get('username').touched || registerForm.get('username').dirty)) {
-            <div>
-              @if (registerForm.get('username').hasError('required')) {
-                <div class='absolute text-sm text-red-600'>
-                  * This field is required
-                </div>
-              }
-              @else if (registerForm.get('username').hasError('minlength')) {
-                <div class='absolute text-sm text-red-600'>
-                  * Username must have at least 3 characteres
-                </div>
-              }
-            </div>
-          }
-        </div>
-
-        <div>
           <label for='password' class='block mb-2 text-sm font-medium'>Password</label>
           <input type='password' formControlName='password'  class='block w-full p-2 rounded-lg text-base bg-gray-700 border-gray-600' name='password' id='password' placeholder='●●●●●●●●'>
           @if (registerForm.invalid && (registerForm.get('password').touched || registerForm.get('password').dirty)) {

@@ -3,7 +3,6 @@ package com.runningback.service;
 import com.runningback.entity.User;
 import com.runningback.repository.IUserRepo;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +35,6 @@ public class UserServiceImpl implements IUserService {
             userUpdate.setFirstName(user.getFirstName());
             userUpdate.setLastName(user.getLastName());
             userUpdate.setEmail(user.getEmail());
-            userUpdate.setUsername(user.getUsername());
             return userRepo.save(userUpdate);
         }).orElse(null);
     }

@@ -26,7 +26,6 @@ export class DataComponent implements OnInit{
       firstName: ['', [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-ZÀ-ÿ\u00f1\u00d1]+( [a-zA-ZÀ-ÿ\u00f1\u00d1]+)*$')]],
       lastName: ['', [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-ZÀ-ÿ\u00f1\u00d1]+( [a-zA-ZÀ-ÿ\u00f1\u00d1]+)*$')]],
       email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}(\.[a-zA-Z]{2,4})?$')]],
-      username: ['', [Validators.required, Validators.minLength(3)]],
       weight: ['', [Validators.required, Validators.min(30), Validators.max(200)]],
       height: ['', [Validators.required, Validators.min(100), Validators.max(230)]],
       birthDate: ['', [Validators.required, this.ageValidator]],
@@ -40,6 +39,7 @@ export class DataComponent implements OnInit{
     this.id = +this.route.snapshot.paramMap.get('id')!;
     this.authService.getUserById(this.id).subscribe((user: User) => {
       this.dataForm.patchValue(user);
+      console.log(user);
     });
 
     this.getsService.getAllCountries().subscribe({

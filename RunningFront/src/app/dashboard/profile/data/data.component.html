@@ -68,24 +68,6 @@
                 }
             </div>
             <div>
-                <label for='username' class='block mb-2 text-sm font-medium'>Username</label>
-                <input type='text' formControlName='username'  class='w-full border-0 border-b-2 bg-transparent border-gray-700 p-2 focus:ring-0' name='username' id='username'>
-                @if (dataForm.invalid && (dataForm.get('username').touched || dataForm.get('username').dirty)) {
-                    <div>
-                    @if (dataForm.get('username').hasError('required')) {
-                        <div class='absolute text-sm text-red-600'>
-                        * This field is required
-                        </div>
-                    }
-                    @else if (dataForm.get('username').hasError('minlength')) {
-                        <div class='absolute text-sm text-red-600'>
-                        * Username must have at least 3 characteres
-                        </div>
-                    }
-                    </div>
-                }
-            </div>
-            <div>
                 <label for='height' class='block mb-2 text-sm font-medium'>Height</label>
                 <input type='number' formControlName='height'  class='w-full border-0 border-b-2 bg-transparent border-gray-700 p-2 focus:ring-0' name='height' id='height'>
                 @if (dataForm.invalid && (dataForm.get('height').touched || dataForm.get('height').dirty)) {
