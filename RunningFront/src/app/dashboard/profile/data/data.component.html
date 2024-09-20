@@ -50,24 +50,6 @@
             }
             </div>
             <div>
-                <label for='email' class='block mb-2 text-sm font-medium'>Email</label>
-                <input type='text' formControlName='email'  class='w-full border-0 border-b-2 bg-transparent border-gray-700 p-2 focus:ring-0' name='email' id='email'>
-                @if (dataForm.invalid && (dataForm.get('email').touched || dataForm.get('email').dirty)) {
-                    <div>
-                    @if (dataForm.get('email').hasError('required')) {
-                        <div class='absolute text-sm text-red-600'>
-                        * This field is required
-                        </div>
-                    }
-                    @else if (dataForm.get('email').hasError('pattern')) {
-                        <div class='absolute text-sm text-red-600'>
-                        * Not good email format
-                        </div>
-                    }
-                    </div>
-                }
-            </div>
-            <div>
                 <label for='height' class='block mb-2 text-sm font-medium'>Height</label>
                 <input type='number' formControlName='height'  class='w-full border-0 border-b-2 bg-transparent border-gray-700 p-2 focus:ring-0' name='height' id='height'>
                 @if (dataForm.invalid && (dataForm.get('height').touched || dataForm.get('height').dirty)) {
@@ -157,4 +139,22 @@
     </form>
 
 </div>
+
+@if (updated !== null) {
+    <ng-container>
+        @if (updated == true) {
+            <div class='flex justify-center border text-2xl text-green-600 font-semibold border-green-800 bg-green-100 rounded-xl w-80 py-4'>
+                User updated succesfully!
+            </div>
+        }
+        @if (updated == false) {
+            <div class='flex justify-center border text-2xl text-red-600 font-semibold border-red-800 bg-red-100 rounded-xl w-80 py-4'>
+                Something went wrong!
+            </div>
+        }
+    </ng-container>
+}
+
+
+  
 

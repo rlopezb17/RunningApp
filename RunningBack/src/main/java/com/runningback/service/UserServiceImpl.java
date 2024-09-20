@@ -34,7 +34,10 @@ public class UserServiceImpl implements IUserService {
         return userRepo.findById(id).map(userUpdate -> {
             userUpdate.setFirstName(user.getFirstName());
             userUpdate.setLastName(user.getLastName());
-            userUpdate.setEmail(user.getEmail());
+            userUpdate.setHeight(user.getHeight());
+            userUpdate.setWeight(user.getWeight());
+            userUpdate.setBirthDate(user.getBirthDate());
+            userUpdate.setCountry(user.getCountry());
             return userRepo.save(userUpdate);
         }).orElse(null);
     }

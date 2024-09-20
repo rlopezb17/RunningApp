@@ -18,7 +18,7 @@ export class DataComponent implements OnInit{
   dataForm: FormGroup;
   countries: Country[];
   id: number;
-  updated: boolean = false;
+  updated: boolean = null;
 
   constructor(private fb : FormBuilder, private getsService: GetsService, private route: ActivatedRoute, private authService: AuthService) {
 
@@ -39,7 +39,6 @@ export class DataComponent implements OnInit{
     this.id = +this.route.snapshot.paramMap.get('id')!;
     this.authService.getUserById(this.id).subscribe((user: User) => {
       this.dataForm.patchValue(user);
-      console.log(user);
     });
 
     this.getsService.getAllCountries().subscribe({
@@ -73,11 +72,24 @@ export class DataComponent implements OnInit{
   update() {
 
     if(this.dataForm.valid) {
-      this.authService.updateUser(this.id , this.dataForm.value).subscribe(response => {
-        this.updated = true;
+      this.authService.updateUser(this.id , this.dataForm.value).subscribe({
+        next: () => {
+          this.updated = true;
+          this.autoHideAlert();
+        },
+        error: () => {
+          this.updated = false;
+          this.autoHideAlert();
+        }
       });
     }
 
+  }
+
+  private autoHideAlert() {
+    setTimeout(() => {
+      this.updated = null; // Oculta la alerta después de 3 segundos
+    }, 3000);
   }
 
 }
