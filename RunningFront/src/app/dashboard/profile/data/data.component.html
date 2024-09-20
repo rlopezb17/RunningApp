@@ -140,20 +140,9 @@
 
 </div>
 
-@if (updated !== null) {
-    <ng-container>
-        @if (updated == true) {
-            <div class='flex justify-center border text-2xl text-green-600 font-semibold border-green-800 bg-green-100 rounded-xl w-80 py-4'>
-                User updated succesfully!
-            </div>
-        }
-        @if (updated == false) {
-            <div class='flex justify-center border text-2xl text-red-600 font-semibold border-red-800 bg-red-100 rounded-xl w-80 py-4'>
-                Something went wrong!
-            </div>
-        }
-    </ng-container>
-}
+<div>
+    <app-alert [updated]='alert'></app-alert>
+</div>
 
 
   

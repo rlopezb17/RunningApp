@@ -5,11 +5,12 @@ import { Country } from '../../../interfaces/country';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { User } from '../../../interfaces/user';
+import { AlertComponent } from '../../../utility/alert/alert.component';
 
 @Component({
   selector: 'app-data',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AlertComponent],
   templateUrl: './data.component.html',
   styleUrl: './data.component.css'
 })
@@ -18,7 +19,7 @@ export class DataComponent implements OnInit{
   dataForm: FormGroup;
   countries: Country[];
   id: number;
-  updated: boolean = null;
+  alert: boolean = null;
 
   constructor(private fb : FormBuilder, private getsService: GetsService, private route: ActivatedRoute, private authService: AuthService) {
 
@@ -74,22 +75,24 @@ export class DataComponent implements OnInit{
     if(this.dataForm.valid) {
       this.authService.updateUser(this.id , this.dataForm.value).subscribe({
         next: () => {
-          this.updated = true;
-          this.autoHideAlert();
+          this.alert = true;
+          this.hideAlert();
         },
         error: () => {
-          this.updated = false;
-          this.autoHideAlert();
+          this.alert = false;
+          this.hideAlert();
         }
       });
     }
 
   }
 
-  private autoHideAlert() {
+
+  private hideAlert() {
     setTimeout(() => {
-      this.updated = null; // Oculta la alerta después de 3 segundos
-    }, 3000);
+      this.alert = null;
+    }, 4000);
   }
+
 
 }
