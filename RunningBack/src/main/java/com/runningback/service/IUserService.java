@@ -9,5 +9,4 @@ public interface IUserService {
     User updateUser(int id, User user);
     int getAuthenticatedUser();
 
-
 }
